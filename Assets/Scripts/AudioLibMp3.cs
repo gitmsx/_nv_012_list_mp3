@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using Random = System.Random;
 
-public class AudioMp3
+public class AudioLibMp3
 {
-    public string[] ListMp3(string PathToFolder)
+    public string[] Mp3FilesToArray(string PathToFolder)
     {
         string[] allfoldersTmp = Directory.GetFiles(PathToFolder, "*.mp3", SearchOption.AllDirectories);
         string[] allfolders_mp3 = new string[allfoldersTmp.Length];

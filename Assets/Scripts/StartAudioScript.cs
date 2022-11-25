@@ -29,9 +29,9 @@ public class StartAudioScript : MonoBehaviour
 
         timeEnd = DateTime.Now;
         audioSource = GetComponent<AudioSource>();
-        AudioMp3 audioMp3 = new AudioMp3();
+        AudioLibMp3 audioLibMp3 = new AudioLibMp3();
         string PathToFolderMp3 = "I:\\data1\\mp3.eng\\HarryPotter";
-        ListAllMp3 = audioMp3.ListMp3(PathToFolderMp3);
+        ListAllMp3 = audioLibMp3.Mp3FilesToArray(PathToFolderMp3);
 
         StartCoroutine(ListPlay());
 
