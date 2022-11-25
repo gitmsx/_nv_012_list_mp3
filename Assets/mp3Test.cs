@@ -6,12 +6,14 @@ using UnityEngine.Networking;
 public class mp3Test : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    AudioClip _audioClip;
     AudioSource audioSource;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        LoadButton();
     }
 
     // Update is called once per frame
@@ -28,8 +30,7 @@ public class mp3Test : MonoBehaviour
     }
     IEnumerator LoadAudioClip()
     {
-
-        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(("D:\\1\\2.mp3"), AudioType.MPEG))
+            using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(("file:///D:/1/1.mp3"), AudioType.MPEG))
         {
             yield return uwr.SendWebRequest();
             var  Musics = DownloadHandlerAudioClip.GetContent(uwr);
@@ -37,6 +38,60 @@ public class mp3Test : MonoBehaviour
             audioSource.clip = Musics;
 
             audioSource.Play();
+        }
+    }
+
+
+
+
+
+
+
+
+
+    IEnumerator LoadMusic(string songPath)
+    {
+        if (System.IO.File.Exists(songPath))
+        {
+            using (var uwr = UnityWebRequestMultimedia.GetAudioClip("file://" + songPath, AudioType.AUDIOQUEUE))
+            {
+                ((DownloadHandlerAudioClip)uwr.downloadHandler).streamAudio = true;
+
+                yield return uwr.SendWebRequest();
+
+                if (uwr.isNetworkError || uwr.isHttpError)
+                {
+                    Debug.LogError(uwr.error);
+                    yield break;
+                }
+
+                DownloadHandlerAudioClip dlHandler = (DownloadHandlerAudioClip)uwr.downloadHandler;
+
+                if (dlHandler.isDone)
+                {
+                    AudioClip audioClip = dlHandler.audioClip;
+
+                    if (audioClip != null)
+                    {
+                        _audioClip = DownloadHandlerAudioClip.GetContent(uwr);
+
+                        Debug.Log("Playing song using Audio Source!");
+
+                    }
+                    else
+                    {
+                        Debug.Log("Couldn't find a valid AudioClip :(");
+                    }
+                }
+                else
+                {
+                    Debug.Log("The download process is not completely finished.");
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Unable to locate converted song file.");
         }
     }
 }
