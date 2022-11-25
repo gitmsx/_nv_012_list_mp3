@@ -16,33 +16,27 @@ public class StartAudioScript : MonoBehaviour
     // float TimeToChangeMp3 = 7;
     //    float TimeHasLongTime = 0;
 
-
+    [SerializeField] AudioClip flySound;
 
     void Start()
     {
 
-
+        
         AudioSource audioSource = GetComponent<AudioSource>();
         AudioMp3 audioMp3 = new AudioMp3();
         string PathToFolderMp3 = "I:\\data1\\mp3.eng\\HarryPotter";
         ListAllMp3 = audioMp3.ListMp3(PathToFolderMp3);
+        Debug.Log("1. audioSource.clip.length = " + audioSource.clip.length.ToString());
+        audioSource.PlayOneShot(flySound);
+       
 
-
-
-
-
-      //  Debug.Log(" Array ListAllMp3.Length = " + ListAllMp3.Length.ToString());
 
         StartCoroutine(GetAudioClip(ListAllMp3[3]));
+        audioSource.clip = myClip2;
+        Debug.Log("2. audioSource.clip.length = " + audioSource.clip.length.ToString());
 
 
-
-
-        AudioSource audioSource7 = GetComponent<AudioSource>(); ;
-        audioSource7.clip = myClip2;
-        Debug.Log("audioSource.clip.length = " + audioSource7.clip.length.ToString());
-        Debug.Log("audioSource.clip2 length = " + myClip2.length.ToString());
-        audioSource7.Play();
+        audioSource.Play();
 
 
         //for (int i = 0; i < ListAllMp3.Length; i++)
@@ -59,16 +53,13 @@ public class StartAudioScript : MonoBehaviour
 
         audioSource.clip = myClip2;
         Debug.Log("audioSource.clip.length = " + audioSource.clip.length.ToString());
-
-
-
         audioSource.Play();
         yield return new WaitForSeconds(12);
     }
 
     IEnumerator GetAudioClip(string Pasd)
     {
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("D:\\1\\2.mp3", AudioType.MPEG))
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(@"D:\1\2.mp3", AudioType.MPEG))
         {
             yield return www.SendWebRequest();
 
@@ -78,8 +69,9 @@ public class StartAudioScript : MonoBehaviour
             }
             else
             {
-               // AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
+                // AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
                 myClip2 = DownloadHandlerAudioClip.GetContent(www);
+                Debug.Log(myClip2);
                 Debug.Log("Read Ok");
 
             }
