@@ -28,39 +28,41 @@ public class StartAudioScript : MonoBehaviour
 
     void Start()
     {
+        int CurrentClip = 0;
+
+        timeEnd = DateTime.Now.AddSeconds(2);
+
         audioSource = GetComponent<AudioSource>();
         AudioMp3 audioMp3 = new AudioMp3();
         string PathToFolderMp3 = "I:\\data1\\mp3.eng\\HarryPotter";
         ListAllMp3 = audioMp3.ListMp3(PathToFolderMp3);
 
-
-
-        StartCoroutine(LoadAudioClip(ListAllMp3[3]));
-
-        //StartCoroutine(ListPlay());
+        StartCoroutine(ListPlay());
 
 
 
-
-        // ListAllMp3.Length
-        
-
-        // float TimeToChangeMp3 = 7;
-        //    float TimeHasLongTime = 0;
     }
 
 
 
-    //IEnumerator  ListPlay()
-    //{
-    //    while (true) 
-    //    {
-    //        yield return new WaitForSeconds(3);
+    IEnumerator ListPlay()
+    {
 
-    //        StartCoroutine(LoadAudioClip(ListAllMp3[i]));
-    //    }
 
-    //}
+        double dellta = (timeEnd - DateTime.Now).TotalSeconds;
+        Debug.Log(" ListPlay Seconds " + dellta.ToString() + " timeEnd > DateTime.Now " + (timeEnd > DateTime.Now).ToString());
+        
+        while (timeEnd > DateTime.Now)
+        {
+        
+
+            yield return new WaitForSeconds((float)dellta);
+            
+            
+        }
+        StartCoroutine(LoadAudioClip(ListAllMp3[CurrentClip++]));
+
+    }
 
 
 
@@ -75,10 +77,17 @@ public class StartAudioScript : MonoBehaviour
             audioSource.clip = _audioClip;
             audioSource.Play();
             timeStart = DateTime.Now;
-            timeEnd = timeStart.AddSeconds ( _audioClip.length);
+            timeEnd = timeStart.AddSeconds(_audioClip.length);
+            timeEnd = timeStart.AddSeconds(7);
+            StartCoroutine(ListPlay());
+            //Debug.Log(_audioClip.length / 60);
+            //Debug.Log(PtsPath);
 
-            Debug.Log(timeStart);
-            Debug.Log(timeEnd);
+            //Debug.Log(timeStart);
+            //Debug.Log(timeEnd);
+            //Debug.Log((timeEnd - DateTime.Now).TotalSeconds);
+            //Debug.Log((DateTime.Now- timeEnd ).TotalSeconds);
+
 
             //   StartCoroutine(AudioClip());
         }
