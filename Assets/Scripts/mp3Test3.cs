@@ -13,18 +13,14 @@ public class mp3Test3 : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
-        LoadButton();
-
-
-
-    }
-
-
-    public void LoadButton()
-    {
         StartCoroutine(LoadAudioClip());
+
     }
+
+
+    
+    
+    
 
     IEnumerator LoadAudioClip()
     {

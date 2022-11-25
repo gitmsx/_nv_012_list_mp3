@@ -13,7 +13,7 @@ public class AudioMp3
         var rnd2 = new Random();
         int[] a = Enumerable.Range(0, allfoldersTmp.Length).OrderBy(num => rnd2.Next()).ToArray();
 
-        for (int i = 1; i < allfoldersTmp.Length; i++)
+        for (int i = 0; i < allfoldersTmp.Length; i++)
             allfolders_mp3[i] = allfoldersTmp[a[i]];
         return allfolders_mp3;
     }
