@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96de404445b1d784b8654823243350e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flySound: {fileID: 8300000, guid: 41e9557a9da4f614fb3e65f569fe40f9, type: 3}
+  flySound: {fileID: 8300000, guid: 6d46655070a6b9343be584b49a5f3f43, type: 3}
 --- !u!82 &255698457
 AudioSource:
   m_ObjectHideFlags: 0
@@ -179,7 +179,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 659cd04e1da20c6479814e988af131fe, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
