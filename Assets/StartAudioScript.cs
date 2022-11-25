@@ -9,53 +9,54 @@ public class StartAudioScript : MonoBehaviour
     AudioSource audioSource;
     int CurrentClip = 0;
     string[] ListAllMp3;
+    AudioClip myClip2;
+
+
+    float TimeToChangeMp3 = 7;
+    float TimeHasLongTime = 0;
+
+
 
     void Start()
     {
 
 
         AudioSource audioSource = GetComponent<AudioSource>();
-
-
-
         AudioMp3 audioMp3 = new AudioMp3();
         string PathToFolderMp3 = "I:\\data1\\mp3.eng\\HarryPotter";
         ListAllMp3 = audioMp3.ListMp3(PathToFolderMp3);
         
         
-        StartCoroutine(LoadSongCoroutine());
+
+
+        StartCoroutine(GetAudioClip());
+
+        audioSource.Stop();
+        audioSource.clip = myClip2;
+        audioSource.Play();
 
 
     }
 
-
-    IEnumerator  LoadSongCoroutine()
+    IEnumerator GetAudioClip()
     {
-        audioSource.clip.set( );
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(@"I:\data1\mp3.eng\HarryPotter\Harry Potter Fry\Book 1 - Harry Potter and the Philosopher's Stone (1997)\01 - The Boy Who Lived.mp3", AudioType.MPEG))
+        {
+            yield return www.SendWebRequest();
 
-
-
-        
-           var  filePath = UnityWebRequest.EscapeURL(ListAllMp3[CurrentClip]);
-
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file:///" + filePath, AudioType.OGGVORBIS))
+            if (www.result == UnityWebRequest.Result.ConnectionError)
             {
-                if (www.result == UnityWebRequest.Result.ConnectionError)
-                {
-                    Debug.Log(www.error);
-                }
-                else
-                {
-                    AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
-                }
+                Debug.Log(www.error);
             }
-        
-            my
+            else
+            {
+                AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
+                myClip2 = DownloadHandlerAudioClip.GetContent(www);
 
-
-        CurrentClip++;
-        yield return new WaitForSeconds( myClip.le);
+            }
+        }
     }
+}
 
   
-}
+
