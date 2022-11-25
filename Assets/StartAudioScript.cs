@@ -25,22 +25,44 @@ public class StartAudioScript : MonoBehaviour
         AudioMp3 audioMp3 = new AudioMp3();
         string PathToFolderMp3 = "I:\\data1\\mp3.eng\\HarryPotter";
         ListAllMp3 = audioMp3.ListMp3(PathToFolderMp3);
-        
-        
 
 
-        StartCoroutine(GetAudioClip());
+        Debug.Log(ListAllMp3);
+        Debug.Log(ListAllMp3.Length);
 
-        audioSource.Stop();
-        audioSource.clip = myClip2;
-        audioSource.Play();
+        StartCoroutine(GetAudioClip(ListAllMp3[i]));
 
+        Debug.Log("2 nd ");
+        for (int i = 0; i < ListAllMp3.Length; i++)
+        {
+            Debug.Log(ListAllMp3[i]);
+
+            //audioSource.Stop();
+            //audioSource.clip = 
+            //audioSource.Play();
+        //    StartCoroutine(CclipStart());
+
+        }
 
     }
 
-    IEnumerator GetAudioClip()
+
+    IEnumerator CclipStart()
     {
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(@"I:\data1\mp3.eng\HarryPotter\Harry Potter Fry\Book 1 - Harry Potter and the Philosopher's Stone (1997)\01 - The Boy Who Lived.mp3", AudioType.MPEG))
+
+
+        audioSource.clip = myClip2;
+        Debug.Log("audioSource.clip.length");
+        Debug.Log(audioSource.clip.length);
+
+
+     //   audioSource.Play();
+        yield return new WaitForSeconds(12);
+    }
+
+    IEnumerator GetAudioClip(string Pasd)
+    {
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("D:\\1\\2.mp3", AudioType.MPEG))
         {
             yield return www.SendWebRequest();
 
@@ -52,11 +74,12 @@ public class StartAudioScript : MonoBehaviour
             {
                 AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
                 myClip2 = DownloadHandlerAudioClip.GetContent(www);
+                Debug.Log("Read Ok");
 
             }
         }
     }
 }
 
-  
+
 
