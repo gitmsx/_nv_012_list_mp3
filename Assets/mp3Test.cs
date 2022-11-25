@@ -8,6 +8,7 @@ public class mp3Test : MonoBehaviour
     // Start is called before the first frame update
     AudioClip _audioClip;
     AudioSource audioSource;
+    
 
     private void Start()
     {
@@ -27,18 +28,24 @@ public class mp3Test : MonoBehaviour
     public void LoadButton()
     {
         StartCoroutine(LoadAudioClip());
+
     }
     IEnumerator LoadAudioClip()
     {
-      //  using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(("file:///D:/1/1.mp3"), AudioType.MPEG))
-        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(("file:///D:/1/2.mp3"), AudioType.MPEG))
+        //  using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(("file:///D:/1/1.mp3"), AudioType.MPEG))
+//        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(("file:///D:/1/2.mp3"), AudioType.MPEG))
+        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(("D:/1/2.mp3"), AudioType.MPEG))
         {
+            
             yield return uwr.SendWebRequest();
-            var  Musics = DownloadHandlerAudioClip.GetContent(uwr);
 
-            audioSource.clip = Musics;
+            _audioClip = DownloadHandlerAudioClip.GetContent(uwr);
+            audioSource.clip = _audioClip;
+            Debug.Log(audioSource.clip.length);
 
             audioSource.Play();
+
+
         }
     }
 

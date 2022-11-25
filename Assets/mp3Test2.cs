@@ -15,8 +15,7 @@ public class mp3Test2 : MonoBehaviour
 
 
         LoadButton2();
-        audioSource.clip = _audioClip;
-        audioSource.Play();
+      
 
         //    LoadButton();
     }
@@ -87,7 +86,8 @@ public class mp3Test2 : MonoBehaviour
                     if (audioClip != null)
                     {
                         _audioClip = DownloadHandlerAudioClip.GetContent(uwr);
-
+                        audioSource.clip = _audioClip;
+                        audioSource.Play();
                         Debug.Log("Playing song using Audio Source!");
 
                     }
