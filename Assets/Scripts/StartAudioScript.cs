@@ -18,11 +18,8 @@ public class StartAudioScript : MonoBehaviour
 
 
     string[] ListAllMp3;
-    
+     [SerializeField] float TimeToChangeMp3 = 7;
 
-
-     float TimeToChangeMp3 = 7;
-     float TimeHasLongTime = 0;
 
     [SerializeField] AudioClip flySound;
 
@@ -30,8 +27,7 @@ public class StartAudioScript : MonoBehaviour
     {
         int CurrentClip = 0;
 
-        timeEnd = DateTime.Now.AddSeconds(2);
-
+        timeEnd = DateTime.Now;
         audioSource = GetComponent<AudioSource>();
         AudioMp3 audioMp3 = new AudioMp3();
         string PathToFolderMp3 = "I:\\data1\\mp3.eng\\HarryPotter";
@@ -51,15 +47,9 @@ public class StartAudioScript : MonoBehaviour
 
         double dellta = (timeEnd - DateTime.Now).TotalSeconds;
         Debug.Log(" ListPlay Seconds " + dellta.ToString() + " timeEnd > DateTime.Now " + (timeEnd > DateTime.Now).ToString());
-        
-        while (timeEnd > DateTime.Now)
-        {
-        
 
+        while (timeEnd > DateTime.Now)
             yield return new WaitForSeconds((float)dellta);
-            
-            
-        }
         StartCoroutine(LoadAudioClip(ListAllMp3[CurrentClip++]));
 
     }
@@ -78,18 +68,11 @@ public class StartAudioScript : MonoBehaviour
             audioSource.Play();
             timeStart = DateTime.Now;
             timeEnd = timeStart.AddSeconds(_audioClip.length);
-            timeEnd = timeStart.AddSeconds(7);
+            if (TimeToChangeMp3>0)  // fast change for debug and etc
+            timeEnd = timeStart.AddSeconds(TimeToChangeMp3);
+            Debug.Log("TotalSeconds to change track = " + (timeEnd - DateTime.Now).TotalSeconds);
             StartCoroutine(ListPlay());
-            //Debug.Log(_audioClip.length / 60);
-            //Debug.Log(PtsPath);
 
-            //Debug.Log(timeStart);
-            //Debug.Log(timeEnd);
-            //Debug.Log((timeEnd - DateTime.Now).TotalSeconds);
-            //Debug.Log((DateTime.Now- timeEnd ).TotalSeconds);
-
-
-            //   StartCoroutine(AudioClip());
         }
     }
 
