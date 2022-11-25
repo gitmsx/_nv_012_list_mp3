@@ -59,7 +59,7 @@ public class StartAudioScript : MonoBehaviour
 
     IEnumerator GetAudioClip(string Pasd)
     {
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(@"D:\1\2.mp3", AudioType.MPEG))
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("D:\\1\\2.mp3", AudioType.MPEG))
         {
             yield return www.SendWebRequest();
 
@@ -71,7 +71,7 @@ public class StartAudioScript : MonoBehaviour
             {
                 // AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
                 myClip2 = DownloadHandlerAudioClip.GetContent(www);
-                Debug.Log(myClip2);
+                Debug.Log(DownloadHandlerAudioClip.GetContent(www));
                 Debug.Log("Read Ok");
 
             }
