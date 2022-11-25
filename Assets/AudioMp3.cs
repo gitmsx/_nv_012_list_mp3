@@ -1,40 +1,21 @@
 using System;
-
 using System.IO;
 using System.Linq;
-using UnityEngine;
+using Random = System.Random;
 
 public class AudioMp3
 {
+    public string[] ListMp3(string PathToFolder)
+    {
+        string[] allfoldersTmp = Directory.GetFiles(PathToFolder, "*.mp3", SearchOption.AllDirectories);
+        string[] allfolders_mp3 = new string[allfoldersTmp.Length];
 
-    public string [] Listmp3Create(string PathToFolder) 
+        var rnd2 = new Random();
+        int[] a = Enumerable.Range(0, allfoldersTmp.Length).OrderBy(num => rnd2.Next()).ToArray();
 
-{
-
-
-    
-    string[] allfoldersTmp = Directory.GetFiles(PathToFolder, "*.mp3", SearchOption.AllDirectories);
-
-
-    var LengthMp3 = allfoldersTmp.Length;
-    var rnd2 = new Random();
-    string[] allfolders_mp3 = new string[LengthMp3];
-
-
-    int[] a = Enumerable.Range(0, LengthMp3).OrderBy(num => rnd2.Next()).ToArray();
-
-
-
-
-
-
-            for (int i = 1; i<LengthMp3; i++)
-            {
-                allfolders_mp3[i] = allfoldersTmp[a[i]];
-                Console.WriteLine(allfolders_mp3[i]);
-            }
-
+        for (int i = 1; i < allfoldersTmp.Length; i++)
+            allfolders_mp3[i] = allfoldersTmp[a[i]];
         return allfolders_mp3;
-}
+    }
 
 }
