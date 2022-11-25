@@ -30,7 +30,8 @@ public class mp3Test : MonoBehaviour
     }
     IEnumerator LoadAudioClip()
     {
-            using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(("file:///D:/1/1.mp3"), AudioType.MPEG))
+      //  using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(("file:///D:/1/1.mp3"), AudioType.MPEG))
+        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(("file:///D:/1/2.mp3"), AudioType.MPEG))
         {
             yield return uwr.SendWebRequest();
             var  Musics = DownloadHandlerAudioClip.GetContent(uwr);
