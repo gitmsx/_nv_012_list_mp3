@@ -61,12 +61,12 @@ public class mp3Test2 : MonoBehaviour
     IEnumerator LoadMusic(string songPath)
     {
 
-        Debug.Log("file://" + songPath);
+        Debug.Log("file:///" + songPath);
         if (System.IO.File.Exists(songPath))
         {
 
             
-            using (var uwr = UnityWebRequestMultimedia.GetAudioClip("file://" + songPath, AudioType.AUDIOQUEUE))
+            using (var uwr = UnityWebRequestMultimedia.GetAudioClip("file:///" + songPath, AudioType.MPEG))
             {
                 ((DownloadHandlerAudioClip)uwr.downloadHandler).streamAudio = true;
 
